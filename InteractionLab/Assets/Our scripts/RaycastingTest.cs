@@ -14,6 +14,8 @@ public class RaycastingTest : MonoBehaviour
     private GameObject objectInHand;
     private  RaycastHit hit;
     //private GameObject cameraRig;
+	
+	
     private SteamVR_Controller.Device Controller
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
