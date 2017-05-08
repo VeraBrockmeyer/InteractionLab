@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Supermarket.unity
+- path: Assets/Scenes/Testing_near.unity
   isLoaded: 1
   isActive: 1

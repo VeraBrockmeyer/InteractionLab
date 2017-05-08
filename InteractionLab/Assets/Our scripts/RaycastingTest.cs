@@ -5,7 +5,6 @@ using UnityEngine;
 public class RaycastingTest : MonoBehaviour
 {
 
-
     private SteamVR_TrackedObject trackedObj;
     public GameObject laserPrefab;
     private GameObject laser;
@@ -14,8 +13,7 @@ public class RaycastingTest : MonoBehaviour
     private GameObject collidingObject;
     private GameObject objectInHand;
     private  RaycastHit hit;
-
-
+    //private GameObject cameraRig;
     private SteamVR_Controller.Device Controller
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
@@ -31,13 +29,13 @@ public class RaycastingTest : MonoBehaviour
         laser.SetActive(true);
         laserTransform.position = Vector3.Lerp(trackedObj.transform.position, hitPoint, .5f);
         laserTransform.LookAt(hitPoint);
-        laserTransform.localScale = new Vector3(laserTransform.localScale.x, laserTransform.localScale.y,
-            hit.distance);
+        laserTransform.localScale = new Vector3(laserTransform.localScale.x, laserTransform.localScale.y, hit.distance);
     }
 
     // Use this for initialization
     void Start()
     {
+        //cameraRig = GameObject.Find ("[CameraRig]");
         laser = Instantiate(laserPrefab);
         laserTransform = laser.transform;
     }
@@ -45,15 +43,13 @@ public class RaycastingTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        
-
         // Shoot a ray from the controller.If it hits something, make it store the point where it hit and show the laser.
         if (Physics.Raycast(trackedObj.transform.position, transform.forward, out hit, 100))
         {
             hitPoint = hit.point;
             ShowLaser(hit);
         }
+
         if (Controller.GetHairTriggerDown())
         {
             if (collidingObject)
@@ -61,6 +57,7 @@ public class RaycastingTest : MonoBehaviour
                 GrabObject();
             }
         }
+
         if (Controller.GetHairTriggerUp())
         {
             if (objectInHand)
@@ -68,7 +65,6 @@ public class RaycastingTest : MonoBehaviour
                 ReleaseObject();
             }
         }
-
     }
 
     private void GrabObject()
@@ -87,12 +83,10 @@ public class RaycastingTest : MonoBehaviour
         return fx;
     }
 
-
-
     private void SetCollidingObject(Collider col)
     {
         col = hit.collider;
-        Debug.Log( hit.transform.gameObject.name);
+       // Debug.Log( hit.transform.gameObject.name );
 
         if (collidingObject || !col.GetComponent<Rigidbody>())
         {
